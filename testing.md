@@ -2,78 +2,63 @@
 
 ## 1. Objective
 
-Verify private connectivity between App-A and App-B after configuring VPC peering, route tables and security groups.
+To verify private network connectivity between App-A and App-B after configuring AWS VPC Peering, route tables, and security groups.
 
-## 2. Identify the Instances
+## 2. AWS Environment
 
-Run these commands inside each EC2 instance:
+- **Region:** Asia Pacific (Sydney) - `ap-southeast-2`
+- **VPC A CIDR:** `10.10.0.0/16`
+- **VPC B CIDR:** `10.20.0.0/16`
+- **VPC Peering:** Active
 
-```bash
-hostname
-hostname -I
-```
+## 3. EC2 Instances
 
-## 3. Baseline Test
+| Instance | Private IP | Role |
+|---|---|---|
+| Bastion | `10.10.1.100` | Secure access to private instances |
+| App-A | `10.10.2.48` | Application instance in VPC A |
+| App-B | `10.20.1.36` | Application instance in VPC B |
 
-Before establishing peering and adding peer routes, run on App-A:
+## 4. Connectivity Test Results
 
-```bash
-ping -c 4 10.20.1.10
-```
+### Test 1: Bastion to App-A
 
-Expected result: No replies before peering routes are configured.
+Command:
 
-Record the actual output.
+`ping -c 4 10.10.2.48`
 
-## 4. Forward Connectivity Test
+Result: **SUCCESS** — 4 packets received, 0% packet loss.
 
-After peering becomes active and routes are configured, run on App-A:
+### Test 2: Bastion to App-B
 
-```bash
-ping -c 4 10.20.1.10
-```
+Command:
 
-Expected result: Four replies, with zero packet loss, if all routes and security rules are correct.
+`ping -c 4 10.20.1.36`
 
-## 5. Reverse Connectivity Test
+Result: **SUCCESS** — 4 packets received, 0% packet loss after configuring the required ICMP security group rule.
 
-Run on App-B:
+### Test 3: App-A to App-B
 
-```bash
-ping -c 4 10.10.2.10
-```
+Command:
 
-Expected result: Four replies, with zero packet loss, if all routes and security rules are correct.
+`ping -c 4 10.20.1.36`
 
-## 6. SSH Test
+Result: **SUCCESS** — 4 packets received, 0% packet loss.
 
-From the student's laptop, connect to App-B through the bastion using SSH ProxyJump.
+### Test 4: App-B to App-A
 
-```bash
-ssh ewb-app-b
-```
+Command:
 
-This command requires the local SSH configuration and key described in the project setup guide.
+`ping -c 4 10.10.2.48`
 
-## 7. Controlled Failure and Recovery
+Result: **SUCCESS** — 4 packets received, 0% packet loss.
 
-1. Temporarily remove only the App-B inbound ICMP Echo Request rule for App-A.
-2. Repeat the ping test from App-A.
-3. Confirm that replies stop.
-4. Restore the exact rule.
-5. Repeat the ping test and confirm connectivity returns.
+### Test 5: SSH Access to Private Instances
 
-Keep the SSH rule in place during this test.
+SSH access from the Bastion host to App-A and App-B was successfully verified using the EC2 key pair.
 
-## 8. Evidence
+Result: **SUCCESS**
 
-Save screenshots showing:
-- Baseline ping failure.
-- Successful ping from App-A to App-B.
-- Successful ping from App-B to App-A.
-- SSH access to App-B through the bastion.
-- Controlled failure and recovery.
+## 5. Conclusion
 
-## 9. Test Results
-
-Actual results will be recorded after the AWS deployment. Expected results are not proof of a completed test.
+VPC Peering connectivity between VPC A and VPC B was verified successfully. The route tables and security group rules allowed private communication between App-A and App-B in both directions without requiring a public IP address on either application instance.

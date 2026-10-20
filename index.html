@@ -1,41 +1,113 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AWS VPC Peering Project</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f1f5f9;
+        }
+
+        header {
+            background: #142b45;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        section {
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #e87520;
+        }
+
+        .card {
+            background: #eaf2f8;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+    </style>
 </head>
+
 <body>
+
+<header>
     <h1>AWS VPC Peering Project</h1>
+    <p>Private Communication Between Two AWS VPCs</p>
+</header>
 
+<section>
+    <h2>Project Overview</h2>
     <p>
-        This project demonstrates private communication
-        between two AWS Virtual Private Clouds.
+        This project demonstrates private connectivity between
+        two AWS VPCs using VPC Peering.
     </p>
+</section>
 
+<section>
     <h2>Project Architecture</h2>
-    <p>VPC A: 10.10.0.0/16</p>
-    <p>VPC B: 10.20.0.0/16</p>
 
-    <h2>Technologies Used</h2>
+    <div class="card">
+        <h3>VPC A</h3>
+        <p>CIDR: 10.10.0.0/16</p>
+        <p>App-A: 10.10.2.48</p>
+        <p>Bastion: 10.10.1.100</p>
+    </div>
+
+    <div class="card">
+        <h3>VPC B</h3>
+        <p>CIDR: 10.20.0.0/16</p>
+        <p>App-B: 10.20.1.36</p>
+    </div>
+</section>
+
+<section>
+    <h2>AWS Services Used</h2>
     <ul>
         <li>Amazon VPC</li>
         <li>Amazon EC2</li>
         <li>VPC Peering</li>
         <li>Route Tables</li>
+        <li>Internet Gateway</li>
         <li>Security Groups</li>
     </ul>
+</section>
 
+<section>
+    <h2>Testing Results</h2>
+    <p>Bastion to App-A: Successful</p>
+    <p>Bastion to App-B: Successful</p>
+    <p>App-A to App-B: Successful</p>
+    <p>App-B to App-A: Successful</p>
+    <p>SSH access to private instances: Successful</p>
+    <p>Ping tests completed with 0% packet loss.</p>
+</section>
+
+<section>
     <h2>Project Documentation</h2>
-    <ul>
-        <li><a href="README.md">Project Overview</a></li>
-        <li><a href="architecture.md">Architecture</a></li>
-        <li><a href="route-tables.md">Route Tables</a></li>
-        <li><a href="security-groups.md">Security Groups</a></li>
-        <li><a href="testing.md">Testing Guide</a></li>
-    </ul>
+    <p><a href="README.md">Project Overview</a></p>
+    <p><a href="architecture.md">Architecture</a></p>
+    <p><a href="route-tables.md">Route Tables</a></p>
+    <p><a href="security-groups.md">Security Groups</a></p>
+    <p><a href="testing.md">Testing Results</a></p>
+</section>
 
-    <p>Deployment status: In progress.</p>
+<footer>
+    <header>
+        AWS VPC Peering Project | Cloud Computing
+    </header>
+</footer>
+
 </body>
 </html>

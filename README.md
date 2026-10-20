@@ -1,44 +1,58 @@
 # AWS VPC Peering Project
 
 ## Project Overview
-This project demonstrates private communication between two Amazon Virtual Private Clouds (VPCs) using AWS VPC Peering.
+This project demonstrates private network connectivity between two Amazon Virtual Private Clouds (VPCs) using AWS VPC Peering.
 
 ## Objectives
-- Create two VPCs with non-overlapping CIDR blocks.
+- Create two separate VPCs.
 - Configure public and private subnets.
-- Launch EC2 instances.
-- Establish a VPC peering connection.
+- Establish a VPC Peering connection.
 - Configure route tables and security groups.
-- Test private connectivity using ping and SSH.
+- Verify private connectivity between EC2 instances.
 
-## Network Design
+## AWS Architecture
 
 ### VPC A
 - CIDR: `10.10.0.0/16`
 - Public subnet: `10.10.1.0/24`
 - Private subnet: `10.10.2.0/24`
-- Bastion host: `10.10.1.10`
-- App-A: `10.10.2.10`
+- Bastion Host: `10.10.1.100`
+- App-A: `10.10.2.48`
 
 ### VPC B
 - CIDR: `10.20.0.0/16`
 - Private subnet: `10.20.1.0/24`
-- App-B: `10.20.1.10`
+- App-B: `10.20.1.36`
 
-## Technologies
-- Amazon Web Services (AWS)
+## AWS Services Used
 - Amazon VPC
 - Amazon EC2
 - VPC Peering
 - Route Tables
+- Internet Gateway
 - Security Groups
-- SSH and ICMP
 
-## Expected Outcome
-The two private application instances should communicate through the active VPC peering connection after the correct routes and security rules are configured.
+## Connectivity Testing
 
-## Project Status
-Documentation created. AWS deployment and connectivity tests are pending.
+The VPC Peering connection was active during testing.
 
-## Author
-Student Project
+| Test | Result |
+|---|---|
+| Bastion to App-A ping | Successful |
+| Bastion to App-B ping | Successful |
+| App-A to App-B ping | Successful |
+| App-B to App-A ping | Successful |
+| SSH from Bastion to private instances | Successful |
+
+Both application instances communicated using private IP addresses, and the ping tests completed with 0% packet loss.
+
+Detailed results are available in [testing.md](testing.md).
+
+## Project Documentation
+- [Architecture](architecture.md)
+- [Route Tables](route-tables.md)
+- [Security Groups](security-groups.md)
+- [Connectivity Testing](testing.md)
+
+## Conclusion
+The project successfully demonstrates private communication between two AWS VPCs through VPC Peering, with routing and security group rules configured to allow the required traffic.

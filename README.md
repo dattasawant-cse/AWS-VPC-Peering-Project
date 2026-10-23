@@ -54,5 +54,14 @@ Detailed results are available in [testing.md](testing.md).
 - [Security Groups](security-groups.md)
 - [Connectivity Testing](testing.md)
 
+- 
+## Project Screenshots
+
+### App-A to App-B Connectivity
+![App-A to App-B Ping Test](app-a-to-app-b-ping.png)
+
+### App-B to App-A Connectivity
+![App-B to App-A Ping Test](app-b-to-app-a-ping.png)
+
 ## Conclusion
 The project successfully demonstrates private communication between two AWS VPCs through VPC Peering, with routing and security group rules configured to allow the required traffic.
